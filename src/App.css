@@ -2,6 +2,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
+  max-width: 1200px;
 }
 
 header {
@@ -17,4 +19,29 @@ header form {
 
 header form input {
   width: 250px;
+}
+
+main {
+  width: 100%;
+}
+
+.movies {
+  padding: 0;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px;
+  justify-content: center;
+}
+
+.movie {
+  text-align: center;
+}
+
+.movie h3 {
+  margin-bottom: 0;
+}
+
+.movie img {
+  border-radius: 16px;
 }
