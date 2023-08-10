@@ -15,7 +15,7 @@ function ListOfMovies({ movies }) {
 
 function NoMoviesToShow() {
   return (
-    <p>No Result Found</p>
+    <p>No movies to show</p>
   )
 }
 

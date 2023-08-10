@@ -6,7 +6,7 @@ import debounce from 'just-debounce-it'
 import { useMemo } from 'react'
 
 function App() {
-  const { search, setSearch, error } = useSearch()
+  const { search, setSearch } = useSearch()
   const { movies, getMovies } = useMovies({ search })
   const debounceMovies = useMemo(() => {
     return debounce(search => {
@@ -33,7 +33,6 @@ function App() {
           <input autoComplete='off' name='query' onChange={handleChange} placeholder='Search...' type='text' value={search} />
           <button type='submit'>Search</button>
         </form>
-        {error && <p>{error}</p>}
       </header>
       <main>
         <Movies movies={movies} />

@@ -2,7 +2,6 @@ import { useState, useRef, useEffect } from "react"
 
 export function useSearch() {
   const [search, setSearch] = useState('')
-  const [error, setError] = useState(null)
   const isInitialInput = useRef(true)
 
   useEffect(() => {
@@ -10,12 +9,8 @@ export function useSearch() {
       isInitialInput.current = search === ''
       return
     }
-    if (search === '') {
-      setError('Empty')
-      return
-    }
-    setError(null)
+    if (search === '') return
   }, [search])
 
-  return { search, setSearch, error }
+  return { search, setSearch, }
 }
