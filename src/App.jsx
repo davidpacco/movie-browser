@@ -2,10 +2,17 @@ import { Movies } from './components/Movies'
 import { useMovies } from './hooks/useMovies'
 import { useSearch } from './hooks/useSearch'
 import './App.css'
+import debounce from 'just-debounce-it'
+import { useMemo } from 'react'
 
 function App() {
   const { search, setSearch, error } = useSearch()
   const { movies, getMovies } = useMovies({ search })
+  const debounceMovies = useMemo(() => {
+    return debounce(search => {
+      getMovies({ search })
+    }, 300)
+  }, [getMovies])
 
   const handleSubmit = (event) => {
     event.preventDefault()
@@ -15,7 +22,7 @@ function App() {
   const handleChange = (event) => {
     const newSearch = event.target.value
     setSearch(newSearch)
-    getMovies({ search: newSearch })
+    debounceMovies(newSearch)
   }
 
   return (

@@ -20,7 +20,7 @@ function NoMoviesToShow() {
 }
 
 export function Movies({ movies }) {
-  const hasResults = movies.length > 0
+  const hasResults = movies?.length > 0
 
   return (
     hasResults
