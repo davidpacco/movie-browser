@@ -1,20 +1,22 @@
-import { useState, useEffect } from "react"
+import { useMemo, useRef, useState } from "react"
+import { seachMovies } from "../services/movies"
 
-export function useMovies () {
+export function useMovies ({ search }) {
   const [movies, setMovies] = useState([])
+  const previousSearch = useRef(search)
 
-  useEffect(() => {
-    fetch('https://www.omdbapi.com/?apikey=4287ad07&s=avengers')
-      .then(res => res.json())
-      .then(data => setMovies(data.Search))
+  const getMovies = useMemo(() => {
+    return async ({ search }) => {
+      if (search === previousSearch.current) return
+      try {
+        previousSearch.current = search
+        const movieList = await seachMovies({ search })
+        setMovies(movieList)
+      } catch (e) {
+        console.error(e)
+      }
+    }
   }, [])
 
-  const mappedMovies = movies?.map(movie => ({
-    id: movie.imdbID,
-    title: movie.Title,
-    year: movie.Year,
-    poster: movie.Poster
-  }))
-
-  return { movies: mappedMovies }
+  return { movies, getMovies }
 }
